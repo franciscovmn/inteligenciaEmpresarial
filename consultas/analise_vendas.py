@@ -7,13 +7,13 @@ import pandas as pd
 pd.options.display.float_format = "{:,.2f}".format
 
 # ---------- Carga dos dados ----------
-vendas = pd.read_csv("Vendas-Globais.csv").dropna(how="all")
+vendas = pd.read_csv("dados/Vendas-Globais.csv").dropna(how="all")
 vendas["Data"] = pd.to_datetime(vendas["Data"], format="%m/%d/%Y")
 vendas["Ano"] = vendas["Data"].dt.year
 
-vendedores = pd.read_csv("vendedores.csv")
-fornecedores = pd.read_csv("fornecedores.csv")
-transportadoras = pd.read_csv("transportadoras.csv")
+vendedores = pd.read_csv("dados/vendedores.csv")
+fornecedores = pd.read_csv("dados/fornecedores.csv")
+transportadoras = pd.read_csv("dados/transportadoras.csv")
 
 vendas = (vendas
           .merge(vendedores, on="VendedorID")
