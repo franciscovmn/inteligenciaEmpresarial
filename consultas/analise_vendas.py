@@ -2,18 +2,23 @@
 # Equipe: Francisco Viana, Murilo Maciel, Felipe Oliveira
 # Requisitos: Python 3 + pandas  (pip install pandas)
 
+from pathlib import Path
+
 import pandas as pd
 
 pd.options.display.float_format = "{:,.2f}".format
 
+# Caminhos ancorados neste arquivo, para o script rodar de qualquer pasta
+DADOS = Path(__file__).resolve().parent.parent / "dados"
+
 # ---------- Carga dos dados ----------
-vendas = pd.read_csv("dados/Vendas-Globais.csv").dropna(how="all")
+vendas = pd.read_csv(DADOS / "Vendas-Globais.csv").dropna(how="all")
 vendas["Data"] = pd.to_datetime(vendas["Data"], format="%m/%d/%Y")
 vendas["Ano"] = vendas["Data"].dt.year
 
-vendedores = pd.read_csv("dados/vendedores.csv")
-fornecedores = pd.read_csv("dados/fornecedores.csv")
-transportadoras = pd.read_csv("dados/transportadoras.csv")
+vendedores = pd.read_csv(DADOS / "vendedores.csv")
+fornecedores = pd.read_csv(DADOS / "fornecedores.csv")
+transportadoras = pd.read_csv(DADOS / "transportadoras.csv")
 
 vendas = (vendas
           .merge(vendedores, on="VendedorID")
